@@ -41,6 +41,19 @@ public class LdRtifyCom extends PluginForDecrypt {
         br.setFollowRedirects(false);
         br.getPage(parameter);
 
+String plaintxt = null;
+        if (br.containsHTML("Enter the password")) {
+            for (int i = 0; i <= 3; i++) {
+                Form pwform = br.getFormbyKey("password");
+                if (pwform == null) return decryptedLinks;
+                String pw = "300mbunited";
+                pwform.put("password", pw);
+                br.submitForm(pwform);
+                if (!br.containsHTML("Enter the password")) break;
+            }
+            if (br.containsHTML("Enter the password")) throw new DecrypterException(DecrypterException.PASSWORD);
+        }
+
         String plaintxt = null;
         if (br.containsHTML("Enter the password")) {
             for (int i = 0; i <= 3; i++) {
